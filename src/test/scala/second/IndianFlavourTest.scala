@@ -19,4 +19,13 @@ class IndianFlavourTest extends FunSuite {
 
     assert(f(2, 5) == "2+5")
   }
+
+  test("compose") {
+    val f: Int => String = a => a.toString
+    val g: String => Int = str => str.toInt
+
+    val r = IndianFlavour.compose(g, f)
+
+    assert(r(3) == 3)
+  }
 }
