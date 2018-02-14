@@ -27,8 +27,15 @@ object List {
 
   def tail[A](list: List[A]): List[A] = {
     list match {
-      case Nil => Nil
       case Cons(_, t) => t
+      case _ => list
+    }
+  }
+
+  def setHead[A](list: List[A], head: A): List[A] = {
+    list match {
+      case Cons(_, t) => Cons(head, t)
+      case _ => list
     }
   }
 }

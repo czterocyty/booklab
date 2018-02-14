@@ -46,4 +46,16 @@ class ListTest extends FunSuite {
   test("tail - two elements") {
     assert(List.tail(List("A", "B")) == List("B"))
   }
+
+  test("setHead for empty") {
+    assert(List.setHead(Nil, "a") == Nil)
+  }
+
+  test("setHead for one element") {
+    assert(List.setHead(List("A"), "B") == List("B"))
+  }
+
+  test("setHead for more elements") {
+    assert(List.setHead(List("A", "B"), "C") == List("C", "B"))
+  }
 }
