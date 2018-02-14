@@ -58,4 +58,20 @@ class ListTest extends FunSuite {
   test("setHead for more elements") {
     assert(List.setHead(List("A", "B"), "C") == List("C", "B"))
   }
+
+  test("drop - empty") {
+    assert(List.drop(Nil, 3) == Nil)
+  }
+
+  test("drop one-element") {
+    assert(List.drop(List("A"), 1) == Nil)
+  }
+
+  test("drop nothing when 0") {
+    assert(List.drop(List("A"), 0) == List("A"))
+  }
+
+  test("drop twice") {
+    assert(List.drop(List(1, 2, 3), 2) == List(3))
+  }
 }
