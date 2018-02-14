@@ -34,4 +34,16 @@ class ListTest extends FunSuite {
   test("output of match - last case") {
     // seems to be dead code
   }
+
+  test("tail - empty") {
+    assert(List.tail(Nil) == Nil)
+  }
+
+  test("tail - one element") {
+    assert(List.tail(List("A")) == Nil)
+  }
+
+  test("tail - two elements") {
+    assert(List.tail(List("A", "B")) == List("B"))
+  }
 }

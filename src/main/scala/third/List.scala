@@ -24,4 +24,11 @@ object List {
       Cons(as.head, apply(as.tail: _*))
     }
   }
+
+  def tail[A](list: List[A]): List[A] = {
+    list match {
+      case Nil => Nil
+      case Cons(_, t) => t
+    }
+  }
 }
