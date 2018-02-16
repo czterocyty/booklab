@@ -100,4 +100,14 @@ class ListTest extends FunSpec {
       assert(List.init(List(5, 4, 1)) == List(5, 4))
     }
   }
+
+  describe("product3") {
+    it("1 * 1") {
+      assert(List.product3(List(1.0, 1.0)) == 1.0)
+    }
+
+    it("0 * 1") {
+      assert(List.product3(List(0.0, 1.0)) == 0.0)
+    }
+  }
 }

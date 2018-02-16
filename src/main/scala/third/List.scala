@@ -72,4 +72,30 @@ object List {
 
     loop(list, Nil)
   }
+
+  def foldRight[A, B](list: List[A], z: B)(f: (A, B) => B): B = {
+    list match {
+      case Nil => z
+      case Cons(h, t) => f(h, foldRight(t, z)(f))
+    }
+  }
+
+  def product2(list: List[Double]): Double = {
+    foldRight(list, 1.0)(_ * _)
+  }
+
+  def foldRight2[A, B](list: List[A], z: B)(f: (A, B) => B)(p: B => Boolean): B = {
+    list match {
+      case Nil => z
+      case Cons(h, t) => if (p(z)) {
+        z
+      } else {
+        f(h, foldRight2(t, z)(f)(p))
+      }
+    }
+  }
+
+  def product3(list: List[Double]): Double = {
+    foldRight2(list, 1.0)(_ * _)(_ == 0.0)
+  }
 }
