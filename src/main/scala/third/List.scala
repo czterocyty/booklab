@@ -102,4 +102,12 @@ object List {
   def length[A](list: List[A]): Int = {
     foldRight(list, 0)((_, i) => i+1)
   }
+
+  @tailrec
+  def foldLeft[A, B](list: List[A], z: B)(f: (B, A) => B): B = {
+    list match {
+      case Nil => z
+      case Cons(h, t) => foldLeft(t, f(z, h))(f)
+    }
+  }
 }

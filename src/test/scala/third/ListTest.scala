@@ -133,4 +133,21 @@ class ListTest extends FunSpec {
       assert(List.length(List("A", "B", "C")) == 3)
     }
   }
+
+  describe("some foldLeft") {
+
+    def sum(a: Int, b: Int): Int = a + b
+
+    it("sum using fold left") {
+      assert(List.foldLeft(List(10, 9, 3), 0)(sum) == 22)
+    }
+
+    it("sum for empty list") {
+      assert(List.foldLeft(Nil, 0)(sum) == 0)
+    }
+
+    it("sum for one element list") {
+      assert(List.foldLeft(List(4), 0)(sum) == 4)
+    }
+  }
 }
