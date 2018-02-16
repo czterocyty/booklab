@@ -54,21 +54,22 @@ object List {
   }
 
   def init[A](list: List[A]): List[A] = {
-    def prepend(l: List[A], next: A): List[A] = {
+    def append(l: List[A], next: A): List[A] = {
       l match {
         case Nil => Cons(next, Nil)
-        case Cons(h, t) => Cons(next, prepend(t, h))
+        case Cons(h, t) => Cons(h, append(t, next))
       }
     }
 
-    def loop(l: List[A]): List[A] = {
+    @tailrec
+    def loop(l: List[A], acc: List[A]): List[A] = {
       l match {
-        case Nil => Nil
-        case Cons(_, Nil) => Nil
-        case Cons(h, t) => prepend(loop(t), h)
+        case Nil => acc
+        case Cons(_, Nil) => acc
+        case Cons(h, t) => loop(t, append(acc, h))
       }
     }
 
-    loop(list)
+    loop(list, Nil)
   }
 }
