@@ -82,4 +82,22 @@ class ListTest extends FunSpec {
       assert(List.drop(List(1, 2, 3), 2) == List(3))
     }
   }
+
+  describe("init") {
+    it("empty") {
+      assert(List.init(Nil) == Nil)
+    }
+
+    it("one-element list") {
+      assert(List.init(List(1)) == Nil)
+    }
+
+    it("two-elements list") {
+      assert(List.init(List("A", "B")) == List("A"))
+    }
+
+    it("three-element list") {
+      assert(List.init(List(5, 4, 1)) == List(5, 4))
+    }
+  }
 }

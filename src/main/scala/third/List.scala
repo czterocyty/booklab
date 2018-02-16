@@ -52,4 +52,23 @@ object List {
       }
     }
   }
+
+  def init[A](list: List[A]): List[A] = {
+    def prepend(l: List[A], next: A): List[A] = {
+      l match {
+        case Nil => Cons(next, Nil)
+        case Cons(h, t) => Cons(next, prepend(t, h))
+      }
+    }
+
+    def loop(l: List[A]): List[A] = {
+      l match {
+        case Nil => Nil
+        case Cons(_, Nil) => Nil
+        case Cons(h, t) => prepend(loop(t), h)
+      }
+    }
+
+    loop(list)
+  }
 }
