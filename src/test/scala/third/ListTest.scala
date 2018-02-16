@@ -150,4 +150,18 @@ class ListTest extends FunSpec {
       assert(List.foldLeft(List(4), 0)(sum) == 4)
     }
   }
+
+  describe("3.11, some more foldLeft") {
+    describe("productLeft") {
+      it("empty") {
+        assert(List.productLeft(Nil) == 1.0)
+      }
+    }
+
+    describe("lengthLeft") {
+      it("empty") {
+        assert(List.lengthLeft(Nil) == 0)
+      }
+    }
+  }
 }
