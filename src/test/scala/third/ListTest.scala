@@ -110,4 +110,13 @@ class ListTest extends FunSpec {
       assert(List.product3(List(0.0, 1.0)) == 0.0)
     }
   }
+
+  describe("foldRight and the constructor") {
+    it("some elements") {
+      val original = List("A", "B", "C")
+      val list = List.foldRight(original, Nil: List[String])(Cons(_, _))
+
+      assert(original == list)
+    }
+  }
 }
