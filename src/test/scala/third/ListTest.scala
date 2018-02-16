@@ -119,4 +119,18 @@ class ListTest extends FunSpec {
       assert(original == list)
     }
   }
+
+  describe("length by foldRight") {
+    it("empty list") {
+      assert(List.length(Nil) == 0)
+    }
+
+    it("one element list") {
+      assert(List.length(List("A")) == 1)
+    }
+
+    it("Some more-element array") {
+      assert(List.length(List("A", "B", "C")) == 3)
+    }
+  }
 }

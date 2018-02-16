@@ -98,4 +98,8 @@ object List {
   def product3(list: List[Double]): Double = {
     foldRight2(list, 1.0)(_ * _)(_ == 0.0)
   }
+
+  def length[A](list: List[A]): Int = {
+    foldRight(list, 0)((_, i) => i+1)
+  }
 }
