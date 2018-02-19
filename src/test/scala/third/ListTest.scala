@@ -164,4 +164,18 @@ class ListTest extends FunSpec {
       }
     }
   }
+
+  describe("3.12 reverse") {
+    it("empty list") {
+      assert(List.reverse(Nil) == Nil)
+    }
+
+    it("one element list") {
+      assert(List.reverse(List("A")) == List("A"))
+    }
+
+    it("more elements") {
+      assert(List.reverse(List(1, 2, 3)) == List(3, 2, 1))
+    }
+  }
 }
