@@ -127,4 +127,14 @@ object List {
   def reverse[A](list: List[A]): List[A] = {
     foldLeft(list, Nil:List[A])((acc, e) => Cons(e, acc))
   }
+
+  // this is wrong :( as it does not apply associations
+  // 3.13
+  def foldLeftByFoldRight[A, B](list: List[A], z: B)(f: (B, A) => B): B = {
+    foldRight(list, z)((z, e) => f(e, z))
+  }
+
+  def foldRightByFoldLeft[A, B](list: List[A], z: B)(f: (A, B) => B): B = {
+    foldLeft(list, z)((e, z) => f(z, e))
+  }
 }

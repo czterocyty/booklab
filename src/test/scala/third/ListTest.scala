@@ -136,18 +136,18 @@ class ListTest extends FunSpec {
 
   describe("some foldLeft") {
 
-    def sum(a: Int, b: Int): Int = a + b
+    def sum(a: String, b: Int): String = a + b
 
     it("sum using fold left") {
-      assert(List.foldLeft(List(10, 9, 3), 0)(sum) == 22)
+      assert(List.foldLeft(List(10, 9, 3), "")(sum) == "1093")
     }
 
     it("sum for empty list") {
-      assert(List.foldLeft(Nil, 0)(sum) == 0)
+      assert(List.foldLeft(Nil, "")(sum) == "")
     }
 
     it("sum for one element list") {
-      assert(List.foldLeft(List(4), 0)(sum) == 4)
+      assert(List.foldLeft(List(4), "")(sum) == "4")
     }
   }
 
@@ -177,5 +177,37 @@ class ListTest extends FunSpec {
     it("more elements") {
       assert(List.reverse(List(1, 2, 3)) == List(3, 2, 1))
     }
+  }
+
+  describe("3.13 foldLeft in terms of foldRight") {
+    def sum(a: String, b: Int): String = a + b
+
+    it("Empty list") {
+      assert(List.foldLeftByFoldRight(Nil:List[Int], "")(sum) == "")
+    }
+
+    it("One element list") {
+      assert(List.foldLeftByFoldRight(List(4), "")(sum) == "4")
+    }
+
+//    it("Three elements") {
+//      assert(List.foldLeftByFoldRight(List(4, 5, 6), "")(sum) == "456")
+//    }
+  }
+  
+  describe("3.13 foldRight in terms of foldLeft") {
+    def sum(a: Int, b: String): String = a + b
+
+    it("Empty list") {
+      assert(List.foldRightByFoldLeft(Nil:List[Int], "")(sum) == "")
+    }
+
+    it("One element list") {
+      assert(List.foldRightByFoldLeft(List(4), "")(sum) == "4")
+    }
+
+//    it("Three elements") {
+//      assert(List.foldRightByFoldLeft(List(4, 5, 6), "")(sum) == "456")
+//    }
   }
 }
