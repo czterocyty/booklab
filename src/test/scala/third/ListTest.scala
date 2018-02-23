@@ -180,34 +180,34 @@ class ListTest extends FunSpec {
   }
 
   describe("3.13 foldLeft in terms of foldRight") {
-    def sum(a: String, b: Int): String = a + b
+    def concat(a: String, b: Int): String = a + b
 
     it("Empty list") {
-      assert(List.foldLeftByFoldRight(Nil:List[Int], "")(sum) == "")
+      assert(List.foldLeftByFoldRight(Nil:List[Int], "")(concat) == "")
     }
 
     it("One element list") {
-      assert(List.foldLeftByFoldRight(List(4), "")(sum) == "4")
+      assert(List.foldLeftByFoldRight(List(4), "")(concat) == "4")
     }
 
 //    it("Three elements") {
-//      assert(List.foldLeftByFoldRight(List(4, 5, 6), "")(sum) == "456")
+//      assert(List.foldLeftByFoldRight(List(4, 5, 6), "")(concat) == "456")
 //    }
   }
   
   describe("3.13 foldRight in terms of foldLeft") {
-    def sum(a: Int, b: String): String = a + b
+    def concat(a: Int, b: String): String = a + b
 
     it("Empty list") {
-      assert(List.foldRightByFoldLeft(Nil:List[Int], "")(sum) == "")
+      assert(List.foldRightByFoldLeft(Nil:List[Int], "")(concat) == "")
     }
 
     it("One element list") {
-      assert(List.foldRightByFoldLeft(List(4), "")(sum) == "4")
+      assert(List.foldRightByFoldLeft(List(4), "")(concat) == "4")
     }
 
 //    it("Three elements") {
-//      assert(List.foldRightByFoldLeft(List(4, 5, 6), "")(sum) == "456")
+//      assert(List.foldRightByFoldLeft(List(4, 5, 6), "")(concat) == "456")
 //    }
   }
 }
