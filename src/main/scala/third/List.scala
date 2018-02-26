@@ -137,4 +137,46 @@ object List {
   def foldRightByFoldLeft[A, B](list: List[A], z: B)(f: (A, B) => B): B = {
     foldLeft(list, z)((e, z) => f(z, e))
   }
+
+  // 3.14
+  def appendByFold[A](a: List[A], b: List[A]): List[A] = {
+     foldRight(a, b)((e, z) => Cons(e, z))
+
+
+
+//    foldLeft(b, a)((z, e) => z match {
+//      case Nil => b
+//      case Cons(h, Nil) => Cons(h, b)
+//      case Cons(h, t) => appendByFold(Cons(e, ), t)
+//    })
+
+//    foldLeft(a, b)((z, e) => )
+  }
+
+  def transform(list: List[Int]): List[Int] = {
+    foldLeft(list, Nil:List[Int])((z, e) => Cons(e+1, z))
+  }
+
+  def doubleToString(list: List[Int]): List[String] = {
+    foldLeft(list, Nil:List[String])((z, e) => Cons(e.toString, z))
+  }
+
+  def map[A, B](list: List[A])(f: A => B): List[B] = {
+    foldLeft(list, Nil:List[B])((z, e) => Cons(f(e), z))
+  }
+
+  def filter[A](list: List[A])(f: A => Boolean): List[A] = {
+    foldLeft(list, Nil:List[A])((z, e) => {
+      if (f(e)) {
+        Cons(e, z)
+      } else {
+        z
+      }
+    })
+  }
+
+  // 3.20
+  def flatMap[A, B](list: List[A])(f: A => List[B]): List[B] = {
+    foldLeft(list, Nil:List[B])((z, e) => appendByFold(z, f(e)))
+  }
 }

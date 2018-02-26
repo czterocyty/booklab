@@ -210,4 +210,46 @@ class ListTest extends FunSpec {
 //      assert(List.foldRightByFoldLeft(List(4, 5, 6), "")(concat) == "456")
 //    }
   }
+
+  describe("3.14 append in terms of foldLeft or foldRight") {
+
+    it("Empty list with empty list") {
+      assert(List.appendByFold(Nil, Nil) == Nil)
+    }
+
+    it("Empty list with one element") {
+      assert(List.appendByFold(Nil, List(3)) == List(3))
+      assert(List.appendByFold(List(3), Nil) == List(3))
+    }
+
+    it("Empty list with more elements") {
+      assert(List.appendByFold(Nil, List("A", "B")) == List("A", "B"))
+      assert(List.appendByFold(List("A", "B"), Nil) == List("A", "B"))
+    }
+
+    it("One element with more") {
+      assert(List.appendByFold(List("A"), List("Y", "Z")) == List("A", "Y", "Z"))
+      assert(List.appendByFold(List("Y", "Z"), List("A")) == List("Y", "Z", "A"))
+    }
+
+    it("More elements with more too") {
+      assert(List.appendByFold(List("Y", "Z"), List("A", "B")) == List("Y", "Z", "A", "B"))
+    }
+  }
+
+  describe("3.20 flatMap") {
+    def g(a: Int): List[Int] = List(a, a)
+
+    it("Empty list") {
+      assert(List.flatMap(Nil:List[Int])(g) == Nil)
+    }
+
+    it("One element list") {
+      assert(List.flatMap(List(3))(g) == List(3, 3))
+    }
+
+    it("Two elements") {
+      assert(List.flatMap(List(3, 1))(g) == List(3, 3, 1, 1))
+    }
+  }
 }
