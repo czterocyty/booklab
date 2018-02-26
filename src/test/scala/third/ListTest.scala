@@ -272,4 +272,10 @@ class ListTest extends FunSpec {
       assert(List.addElements(List(1, 2, 3), List(4, 5, 6, 7)) == List(5, 7, 9, 7))
     }
   }
+
+  describe("3.23 zipWith") {
+    it("zip") {
+      assert(List.zipWith(List(1, 2, 4), List(4, 5, 6))(_ + _) == List(5, 7, 10))
+    }
+  }
 }

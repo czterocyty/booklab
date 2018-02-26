@@ -188,4 +188,12 @@ object List {
       case (Cons(ah, at), Cons(bh, bt)) => Cons(ah+bh, addElements(at, bt))
     }
   }
+
+  // 3.23
+  def zipWith[A, B](left: List[A], right: List[A])(f: (A, A) => B): List[B] = {
+    (left, right) match {
+      case (Cons(ah, at), Cons(bh, bt)) => Cons(f(ah, bh), zipWith(at, bt)(f))
+      case _ => Nil
+    }
+  }
 }
