@@ -252,4 +252,18 @@ class ListTest extends FunSpec {
       assert(List.flatMap(List(3, 1))(g) == List(3, 3, 1, 1))
     }
   }
+
+  describe("3.21 filter by flatMap") {
+    it("Empty list") {
+      assert(List.filterByFlatMap(Nil:List[Int])(_ < 2) == Nil)
+    }
+
+    it("One element list") {
+      assert(List.filterByFlatMap(List(3))(_ < 2) == Nil)
+    }
+
+    it("Two elements") {
+      assert(List.filterByFlatMap(List(3, 1, 1, 3))(_ < 2) == List(1, 1))
+    }
+  }
 }

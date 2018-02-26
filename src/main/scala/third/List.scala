@@ -141,16 +141,6 @@ object List {
   // 3.14
   def appendByFold[A](a: List[A], b: List[A]): List[A] = {
      foldRight(a, b)((e, z) => Cons(e, z))
-
-
-
-//    foldLeft(b, a)((z, e) => z match {
-//      case Nil => b
-//      case Cons(h, Nil) => Cons(h, b)
-//      case Cons(h, t) => appendByFold(Cons(e, ), t)
-//    })
-
-//    foldLeft(a, b)((z, e) => )
   }
 
   def transform(list: List[Int]): List[Int] = {
@@ -178,5 +168,14 @@ object List {
   // 3.20
   def flatMap[A, B](list: List[A])(f: A => List[B]): List[B] = {
     foldLeft(list, Nil:List[B])((z, e) => appendByFold(z, f(e)))
+  }
+
+  // 3.21
+  def filterByFlatMap[A](list: List[A])(f: A => Boolean): List[A] = {
+    flatMap(list)(a => if (f(a)) {
+      List(a)
+    } else {
+      Nil
+    })
   }
 }
