@@ -178,4 +178,14 @@ object List {
       Nil
     })
   }
+
+  // 3.22
+  def addElements(a: List[Int], b: List[Int]): List[Int] = {
+    (a, b) match {
+      case (Nil, Nil) => Nil
+      case (Cons(ah, at), Nil) => Cons(ah, addElements(at, Nil))
+      case (Nil, Cons(bh, bt)) => Cons(bh, addElements(Nil, bt))
+      case (Cons(ah, at), Cons(bh, bt)) => Cons(ah+bh, addElements(at, bt))
+    }
+  }
 }

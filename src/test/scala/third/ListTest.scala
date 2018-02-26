@@ -266,4 +266,10 @@ class ListTest extends FunSpec {
       assert(List.filterByFlatMap(List(3, 1, 1, 3))(_ < 2) == List(1, 1))
     }
   }
+
+  describe("3.22 addElements") {
+    it("Add elements") {
+      assert(List.addElements(List(1, 2, 3), List(4, 5, 6, 7)) == List(5, 7, 9, 7))
+    }
+  }
 }
