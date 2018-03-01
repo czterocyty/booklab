@@ -26,11 +26,7 @@ object Tree {
   def depth[A](tree: Tree[A]): Int = {
     tree match {
       case Leaf(_) => 1
-      case Branch(l, r) => if (depth(l) < depth(r)) {
-        depth(r) + 1
-      } else {
-        depth(l) + 1
-      }
+      case Branch(l, r) => math.max(depth(r), depth(l)) + 1
     }
   }
 
@@ -40,5 +36,20 @@ object Tree {
       case Leaf(v) => Leaf(f(v))
       case Branch(l, r) => Branch(map(l)(f), map(r)(f))
     }
+  }
+
+  // 3.29
+  def fold[A, B](tree: Tree[A])(f: Leaf[A] => B)(m: (B, B) => B): B = {
+    tree match {
+      case Branch(l, r) => m(fold(l)(f)(m), fold(r)(f)(m))
+      case Leaf(v) => f(Leaf(v))
+    }
+  }
+
+  def mapByFold[A, B](tree: Tree[A])(f: A => B): Tree[B] = {
+    def leafFn(leaf: Leaf[A]): Tree[B] = Leaf(f(leaf.value))
+    def mergeFn(l: Tree[B], r: Tree[B]): Tree[B] = Branch(l, r)
+
+    fold(tree)(leafFn)(mergeFn)
   }
 }

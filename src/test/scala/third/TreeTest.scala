@@ -51,4 +51,18 @@ class TreeTest extends FunSpec {
         == Branch(Branch(Leaf(1), Leaf(5)), Branch(Leaf(3), Leaf(2))))
     }
   }
+
+  describe("3.29") {
+    def parse(s: String): Int = s.toInt
+
+    val tree = Branch(Branch(Leaf("1"), Leaf("5")), Branch(Leaf("3"), Leaf("2")))
+
+    it("fold map") {
+      assert(Tree.mapByFold(tree)(parse) == Branch(Branch(Leaf(1), Leaf(5)), Branch(Leaf(3), Leaf(2))))
+    }
+
+    it("depth") {
+      assert(Tree.fold(tree)(_ => 1)((r, l) => math.max(r, l) + 1) == 3)
+    }
+  }
 }
