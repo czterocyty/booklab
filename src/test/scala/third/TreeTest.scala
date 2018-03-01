@@ -52,7 +52,7 @@ class TreeTest extends FunSpec {
     }
   }
 
-  describe("3.29") {
+  describe("3.29 fold") {
     def parse(s: String): Int = s.toInt
 
     val tree = Branch(Branch(Leaf("1"), Leaf("5")), Branch(Leaf("3"), Leaf("2")))

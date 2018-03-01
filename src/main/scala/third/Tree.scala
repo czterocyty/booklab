@@ -39,15 +39,15 @@ object Tree {
   }
 
   // 3.29
-  def fold[A, B](tree: Tree[A])(f: Leaf[A] => B)(m: (B, B) => B): B = {
+  def fold[A, B](tree: Tree[A])(f: A => B)(m: (B, B) => B): B = {
     tree match {
       case Branch(l, r) => m(fold(l)(f)(m), fold(r)(f)(m))
-      case Leaf(v) => f(Leaf(v))
+      case Leaf(v) => f(v)
     }
   }
 
   def mapByFold[A, B](tree: Tree[A])(f: A => B): Tree[B] = {
-    def leafFn(leaf: Leaf[A]): Tree[B] = Leaf(f(leaf.value))
+    def leafFn(v: A): Tree[B] = Leaf(f(v))
     def mergeFn(l: Tree[B], r: Tree[B]): Tree[B] = Branch(l, r)
 
     fold(tree)(leafFn)(mergeFn)
