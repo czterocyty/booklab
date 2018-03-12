@@ -27,4 +27,8 @@ class OptionTest extends FunSpec {
       assert((None: Option[Int]).flatMap(a => Some(a * 2)) == None)
     }
   }
+
+  it("4.2 variance") {
+    assert(Option.variance(List(2.0, 3.0)) == Some(0.25))
+  }
 }
