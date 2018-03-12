@@ -37,4 +37,10 @@ class OptionTest extends FunSpec {
     assert(Option.map2(Some("A"), None)(_ + _) == None)
     assert(Option.map2(None: Option[String], Some("B"))(_ + _) == None)
   }
+
+  it("4.4 sequence") {
+    assert(Option.sequence(List(Some("A"), Some("B"))) == Some(List("A", "B")))
+    assert(Option.sequence(List(Some("A"), None)) == None)
+    assert(Option.sequence(List()) == Some(List()))
+  }
 }

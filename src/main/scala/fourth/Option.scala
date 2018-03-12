@@ -69,4 +69,11 @@ object Option {
     a.flatMap(oa => b.map(ob => f(oa, ob)))
   }
 
+  // 4.4
+  def sequence[A](a: List[Option[A]]): Option[List[A]] = {
+    val start = Some(List(): List[A]): Option[List[A]]
+    def merger(e: Option[A], z: Option[List[A]]): Option[List[A]] = e.flatMap(ev => z.map(l => ev :: l))
+
+    a.foldRight(start)(merger)
+  }
 }
