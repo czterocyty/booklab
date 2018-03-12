@@ -31,4 +31,10 @@ class OptionTest extends FunSpec {
   it("4.2 variance") {
     assert(Option.variance(List(2.0, 3.0)) == Some(0.25))
   }
+
+  it("4.3 map2") {
+    assert(Option.map2(Some("A"), Some("B"))(_ + _) == Some("AB"))
+    assert(Option.map2(Some("A"), None)(_ + _) == None)
+    assert(Option.map2(None: Option[String], Some("B"))(_ + _) == None)
+  }
 }

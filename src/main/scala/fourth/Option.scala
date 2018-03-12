@@ -34,6 +34,8 @@ case class Some[+A](get: A) extends Option[A] {
       None
     }
   }
+
+
 }
 
 case object None extends Option[Nothing] {
@@ -59,4 +61,12 @@ object Option {
   def variance(xs: Seq[Double]): Option[Double] = {
     mean(xs).flatMap(m => mean(xs.map(x => math.pow(x - m, 2))))
   }
+
+  // 4.3
+  def lift[A, B](f: A => B): Option[A] => Option[B] = _.map(f)
+
+  def map2[A, B, C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = {
+    a.flatMap(oa => b.map(ob => f(oa, ob)))
+  }
+
 }
