@@ -43,4 +43,18 @@ class OptionTest extends FunSpec {
     assert(Option.sequence(List(Some("A"), None)) == None)
     assert(Option.sequence(List()) == Some(List()))
   }
+
+  it("4.5 traverse") {
+    def f(a: String): Option[String] = {
+      if (a.length == 1) {
+        Some(a)
+      } else {
+        None
+      }
+    }
+
+    assert(Option.traverse(List("A", "B"))(f) == Some(List("A", "B")))
+    assert(Option.traverse(List("", "B"))(f) == None)
+    assert(Option.traverse(List())(f) == Some(List()))
+  }
 }

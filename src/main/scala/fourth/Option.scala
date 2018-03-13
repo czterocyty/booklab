@@ -76,4 +76,9 @@ object Option {
 
     a.foldRight(start)(merger)
   }
+
+  // 4.5
+  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = {
+    a.foldRight(Some(List()): Option[List[B]])((e: A, z: Option[List[B]]) => f(e).flatMap(eo => z.map(l => eo :: l)))
+  }
 }
