@@ -37,7 +37,22 @@ class StreamTest extends FunSpec {
       it("Empty") {
         assert(Stream.empty.drop(1).toList == List.empty)
       }
-      
+    }
+  }
+
+  describe("takeWhile") {
+    def p(s: String): Boolean = s < "C"
+
+    it("3-element stream") {
+      assert(Stream("A", "B", "C").takeWhile(p).toList == List("A", "B"))
+    }
+
+    it("n greather than stream size") {
+      assert(Stream("A").takeWhile(p).toList == List("A"))
+    }
+
+    it("Empty") {
+      assert(Stream.empty.takeWhile(p).toList == List.empty)
     }
   }
 
