@@ -56,4 +56,14 @@ class StreamTest extends FunSpec {
     }
   }
 
+  describe("forAll") {
+    it("success") {
+      assert(Stream("A", "A", "A").forAll((s) => s.equals("A")))
+    }
+
+    it("non-success") {
+      assert(!Stream("A", "B", "C").forAll(_ == "A"))
+    }
+  }
+
 }
