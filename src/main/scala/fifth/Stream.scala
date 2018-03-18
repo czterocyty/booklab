@@ -1,7 +1,5 @@
 package fifth
 
-import scala.annotation.tailrec
-
 sealed trait Stream[+A] {
   def headOption: Option[A] = {
     this match {
@@ -19,27 +17,25 @@ sealed trait Stream[+A] {
   }
 
   // 5.2
-  def take(n: Int): List[A] = {
+  def take(n: Int): Stream[A] = {
     if (n <= 0) {
-      List.empty
+      Empty
     } else {
       this match {
-        case Empty => List.empty
-        case Cons(h, t) => h() :: t().take(n-1)
+        case Empty => Empty
+        case Cons(h, t) => Cons(h, () => t().take(n-1))
       }
     }
   }
 
-  def drop(n: Int): List[A] = {
-    if (n <= 0) {
-      toList
-    } else {
-      this match {
-        case Empty => List.empty
-        case Cons(_, t) => t().drop(n-1)
-      }
+  def drop(n: Int): Stream[A] = {
+    this match {
+      case Empty => Empty
+      case Cons(_, t) if n > 0 => t().drop(n-1)
+      case Cons(h, t) => Cons(h, t)
     }
   }
+
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
