@@ -149,5 +149,14 @@ object Stream {
   def from(n: Int): Stream[Int] = {
     Stream.cons(n, from(n+1))
   }
+
+  // 5.10
+  def fibs(): Stream[Int] = {
+    def go(a: Int, b: Int): Stream[Int] = {
+      lazy val next = a + b
+      Stream.cons(a, go(b, next))
+    }
+    go(0, 1)
+  }
 }
 
