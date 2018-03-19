@@ -172,4 +172,51 @@ class StreamTest extends FunSpec with BeforeAndAfter {
   it("5.12 constant by unfold") {
     assert(Stream.constant_byUnfold(4).take(5).toList == List(4, 4, 4, 4, 4))
   }
+
+  describe("5.13 take by unfold") {
+    it("3-element stream") {
+      assert(Stream("A", "B", "C").take_byUnfold(2).toList == List("A", "B"))
+    }
+
+    it("n greather than stream size") {
+      assert(Stream("A").take_byUnfold(2).toList == List("A"))
+    }
+
+    it("Empty") {
+      assert(Stream.empty.take_byUnfold(1).toList == List.empty)
+    }
+  }
+
+  describe("5.13 takeWhile by unfold") {
+    def p(s: String): Boolean = s < "C"
+
+    it("3-element stream") {
+      assert(Stream("A", "B", "C").takeWhile_byUnfold(p).toList == List("A", "B"))
+    }
+
+    it("n greather than stream size") {
+      assert(Stream("A").takeWhile_byUnfold(p).toList == List("A"))
+    }
+
+    it("Empty") {
+      assert(Stream.empty.takeWhile_byUnfold(p).toList == List.empty)
+    }
+  }
+
+  describe("5.13 zipWith") {
+    it("zip") {
+      assert(Stream("A", "B", "C").zipWith(Stream("A", "B", "C"))(_ + _).toList == List("AA", "BB", "CC"))
+    }
+  }
+
+  describe("5.13 zipAll") {
+    it("zipAll") {
+      assert(Stream("A", "B", "C").zipAll(Stream("A", "B", "C", "D")).toList
+        == List((Some("A"), Some("A")),
+                (Some("B"), Some("B")),
+                (Some("C"), Some("C")),
+                (None, Some("D"))))
+    }
+  }
+
 }
