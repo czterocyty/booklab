@@ -66,4 +66,14 @@ class StreamTest extends FunSpec {
     }
   }
 
+  describe("headOption by foldRight") {
+    it("empty stream") {
+      assert(Stream.empty.headOption_byFoldRight().isEmpty)
+    }
+
+    it("two elements") {
+      assert(Stream("A", "B").headOption_byFoldRight() == Some("A"))
+    }
+
+  }
 }

@@ -72,6 +72,24 @@ sealed trait Stream[+A] {
       case _ => false
     }
   }
+
+  // 5.5
+  def takeWhile_byFoldRight(p: A => Boolean): Stream[A] = {
+    foldRight(Empty: Stream[A])((e, z) => {
+      if (!p(e)) {
+        z
+      } else {
+        Cons(() => e, () => z)
+      }
+    })
+  }
+
+  // 5.6
+  def headOption_byFoldRight(): Option[A] = {
+    foldRight(None: Option[A])((e, _) => {
+      Some(e)
+    })
+  }
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
