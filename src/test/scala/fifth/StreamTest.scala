@@ -148,4 +148,8 @@ class StreamTest extends FunSpec with BeforeAndAfter {
       assert(Stream("A", "BB").flatMap(f).toList == List(1, 65, 2, 66))
     }
   }
+
+  it("5.8 constant") {
+    assert(Stream.constant("A").take(5).toList == List("A", "A", "A", "A", "A"))
+  }
 }
