@@ -1,8 +1,14 @@
 package fifth
 
-import org.scalatest.FunSpec
+import org.scalatest.{BeforeAndAfter, FunSpec}
 
-class StreamTest extends FunSpec {
+class StreamTest extends FunSpec with BeforeAndAfter {
+
+  var ntimes = 0
+
+  after {
+    ntimes = 0
+  }
 
   describe("toList") {
     it("3-element stream") {
@@ -74,6 +80,72 @@ class StreamTest extends FunSpec {
     it("two elements") {
       assert(Stream("A", "B").headOption_byFoldRight() == Some("A"))
     }
+  }
 
+  describe("5.7, map") {
+    def f(s: String): Int = {
+      ntimes = ntimes+1
+      s.length
+    }
+
+    it("empty stream") {
+      assert(Stream.empty.map(f) == Stream.empty)
+      assert(ntimes == 0)
+    }
+
+    it("some stream") {
+      assert(Stream("A", "BB", "CCC").map(f).toList == List(1, 2, 3))
+      assert(ntimes == 3)
+    }
+  }
+
+  describe("5.7, filter") {
+
+    def f(s: String): Boolean = {
+      ntimes = ntimes+1
+      s.length == 2
+    }
+
+    it("empty stream") {
+      assert(Stream.empty.filter(f).toList == List())
+      assert(ntimes == 0)
+    }
+
+    it("some stream") {
+      assert(Stream("A", "BB", "CCC").filter(f).toList == List("BB"))
+      assert(ntimes == 3)
+    }
+  }
+
+  describe("5.7, append") {
+    val s1 = Stream("A", "B", "C")
+    val s2 = Stream("1", "2", "4")
+
+    it("two empty streams") {
+      assert(Stream.empty.append(Stream.empty) == Stream.empty)
+    }
+
+    it("empty with non-empty") {
+      assert(Stream.empty.append(s1).toList == List("A", "B", "C"))
+      assert(s1.append(Stream.empty).toList == List("A", "B", "C"))
+    }
+
+    it("non empty") {
+      assert(s1.append(s2).toList == List("A", "B", "C", "1", "2", "4"))
+    }
+  }
+
+  describe("5.7, flatMap") {
+    def f(s: String): Stream[Int] = {
+      Stream(s.length, s.codePointAt(0))
+    }
+
+    it("empty") {
+      assert(Stream.empty.flatMap(f) == Stream.empty)
+    }
+
+    it("nonEmpty") {
+      assert(Stream("A", "BB").flatMap(f).toList == List(1, 65, 2, 66))
+    }
   }
 }
