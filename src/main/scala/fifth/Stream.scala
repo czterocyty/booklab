@@ -176,5 +176,13 @@ object Stream {
   def fibs_byUnfold(): Stream[Int] = {
     unfold((0, 1): (Int, Int))(t => Some((t._1, (t._2, t._1 + t._2))))
   }
+
+  def from_byUnfold(n: Int): Stream[Int] = {
+    unfold(n)(s => Some(s, s+1))
+  }
+
+  def constant_byUnfold[A](a: A): Stream[A] = {
+    unfold(a)(s => Some(s, s))
+  }
 }
 
