@@ -144,5 +144,10 @@ object Stream {
     lazy val f: Stream[A] = Stream.cons(a, f)
     f
   }
+
+  // 5.9
+  def from(n: Int): Stream[Int] = {
+    Stream.cons(n, from(n+1))
+  }
 }
 
