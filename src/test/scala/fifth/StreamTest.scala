@@ -160,4 +160,8 @@ class StreamTest extends FunSpec with BeforeAndAfter {
   it("5.10 fibs") {
     assert(Stream.fibs().take(7).toList == List(0, 1, 1, 2, 3, 5, 8))
   }
+
+  it("5.12 fibs by unfold") {
+    assert(Stream.fibs_byUnfold().take(7).toList == List(0, 1, 1, 2, 3, 5, 8))
+  }
 }

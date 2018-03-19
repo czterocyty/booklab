@@ -158,5 +158,23 @@ object Stream {
     }
     go(0, 1)
   }
+
+  // 5.11
+  def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] = {
+    def go(o: Option[(A, S)]): Stream[A] = {
+      if (o.isDefined) {
+        lazy val next = o.get._2
+        Stream.cons(o.get._1, go(f(next)))
+      } else {
+        Stream.empty
+      }
+    }
+    go(f(z))
+  }
+
+  // 5.12
+  def fibs_byUnfold(): Stream[Int] = {
+    unfold((0, 1): (Int, Int))(t => Some((t._1, (t._2, t._1 + t._2))))
+  }
 }
 
