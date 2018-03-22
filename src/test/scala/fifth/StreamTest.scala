@@ -219,4 +219,13 @@ class StreamTest extends FunSpec with BeforeAndAfter {
     }
   }
 
+  describe("5.15 tails") {
+    it("empty") {
+      assert(Stream().tails.toList == List(Stream()))
+    }
+
+    it("non empty") {
+      assert(Stream(1, 2, 3).tails.toList.map(s => s.toList) == List(List(1, 2, 3), List(2, 3), List(3), List()))
+    }
+  }
 }
