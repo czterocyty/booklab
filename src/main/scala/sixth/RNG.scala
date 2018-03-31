@@ -23,4 +23,10 @@ object RNG {
       case v => (math.abs(v), t._2)
     }
   }
+
+  // 6.2
+  def double(rng: RNG): (Double, RNG) = {
+    val t = nonNegativeInt(rng)
+    (t._1.toDouble / (Int.MaxValue + 1l), t._2)
+  }
 }
