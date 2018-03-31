@@ -19,7 +19,7 @@ object RNG {
   def nonNegativeInt(rng: RNG): (Int, RNG) = {
     val t = rng.nextInt
     t._1 match {
-      case Int.MinValue => (0, t._2)
+      case Int.MinValue => nonNegativeInt(t._2)
       case v => (math.abs(v), t._2)
     }
   }
