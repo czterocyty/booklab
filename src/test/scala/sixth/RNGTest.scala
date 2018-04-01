@@ -35,4 +35,11 @@ class RNGTest extends FunSpec {
       assert(RNG.ints(3)(FakeRNG(3))._1 == List(3, 4, 5))
     }
   }
+
+  it("6.4 doubleByMap") {
+    assert(RNG.doubleByMap(FakeRNG(0))._1 == 0.0)
+    assert(RNG.doubleByMap(FakeRNG(Int.MaxValue))._1 - 1.0 < 0.0000000001d)
+    assert(RNG.doubleByMap(FakeRNG(Int.MaxValue / 2))._1 - 0.5d < 0.000000001d)
+  }
+
 }

@@ -73,4 +73,8 @@ object RNG {
 
   def nonNegativeEven: Rand[Int] =
     map(nonNegativeInt)(i => i - i % 2)
+
+  // 6.5
+  def doubleByMap: Rand[Double] =
+    map(nonNegativeInt)(i => i.toDouble / (Int.MaxValue + 1l))
 }
