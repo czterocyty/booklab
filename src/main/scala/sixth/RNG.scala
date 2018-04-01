@@ -47,4 +47,16 @@ object RNG {
     val d3 = double(d2._2)
     ((d1._1, d2._1, d3._1), d3._2)
   }
+
+  // 6.4
+  def ints(count: Int)(rng: RNG): (List[Int], RNG) = {
+    if (count < 1) {
+      (List(), rng)
+    } else {
+      val t = rng.nextInt
+      val x = ints(count-1)(t._2)
+      (t._1 :: x._1, x._2)
+    }
+
+  }
 }

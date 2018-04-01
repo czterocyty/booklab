@@ -21,4 +21,18 @@ class RNGTest extends FunSpec {
     assert(RNG.double(FakeRNG(Int.MaxValue))._1 - 1.0 < 0.0000000001d)
     assert(RNG.double(FakeRNG(Int.MaxValue / 2))._1 - 0.5d < 0.000000001d)
   }
+
+  describe("6.4 list of random") {
+    it("empty list") {
+      assert(RNG.ints(0)(FakeRNG(0))._1 == List.empty)
+    }
+
+    it("1-element list") {
+      assert(RNG.ints(1)(FakeRNG(1))._1 == List(1))
+    }
+
+    it("3-elements list") {
+      assert(RNG.ints(3)(FakeRNG(3))._1 == List(3, 4, 5))
+    }
+  }
 }
