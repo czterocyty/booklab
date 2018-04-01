@@ -42,4 +42,9 @@ class RNGTest extends FunSpec {
     assert(RNG.doubleByMap(FakeRNG(Int.MaxValue / 2))._1 - 0.5d < 0.000000001d)
   }
 
+  it("6.6 map2") {
+    def f(a: Double, b: Double): Double = a + b
+
+    assert(RNG.map2(RNG.double, RNG.double)(f)(FakeRNG(Int.MaxValue))._1 - 2.0 < 0.000000000001d)
+  }
 }
