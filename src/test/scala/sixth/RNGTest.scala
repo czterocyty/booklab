@@ -1,6 +1,7 @@
 package sixth
 
 import org.scalatest.FunSpec
+import sixth.RNG.Rand
 
 class RNGTest extends FunSpec {
 
@@ -46,5 +47,11 @@ class RNGTest extends FunSpec {
     def f(a: Double, b: Double): Double = a + b
 
     assert(RNG.map2(RNG.double, RNG.double)(f)(FakeRNG(Int.MaxValue))._1 - 2.0 < 0.000000000001d)
+  }
+
+  it("6.8 flatMap") {
+    val (v, _) = RNG.nonNegativeLessThanByFlatMap(10)(FakeRNG(Int.MaxValue))
+
+    assert(v == 9)
   }
 }

@@ -86,4 +86,41 @@ object RNG {
       (f(a, b), rng3)
     }
   }
+
+  // 6.7
+  def sequence[A](fs: List[Rand[A]]): Rand[List[A]] = ???
+
+  def nonNegativeLessThan(n: Int): Rand[Int] = {
+    rng => {
+      val (i, rng2) = nonNegativeInt(rng)
+      val mod = i % n
+      if (i + (n-1) - mod >= 0) {
+        (mod, rng2)
+      } else {
+        nonNegativeLessThan(n)(rng)
+      }
+    }
+  }
+
+  // 6.8
+  def flatMap[A, B](f: Rand[A])(g: A => Rand[B]): Rand[B] = {
+    rng => {
+      val (a, rng2) = f(rng)
+      val (v, rng3) = g(a)(rng2)
+      (v, rng3)
+    }
+  }
+
+  def nonNegativeLessThanByFlatMap(n: Int): Rand[Int] = {
+    flatMap(nonNegativeInt)(i => {
+      rng => {
+        val mod = i % n
+        if (i + (n-1) - mod >= 0) {
+          (mod, rng)
+        } else {
+          nonNegativeLessThanByFlatMap(n)(rng)
+        }
+      }
+    })
+  }
 }
