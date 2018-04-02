@@ -123,4 +123,21 @@ object RNG {
       }
     })
   }
+
+  // 6.9
+  def map_byFlatMap[A, B](action: Rand[A])(f: A => B): Rand[B] = {
+    flatMap(action)(a => {
+      rng => {
+        (f(a), rng)
+      }
+    })
+  }
+
+  def map2_byFlatMap[A, B, C](actionA: Rand[A], actionB: Rand[B])(f: (A, B) => C): Rand[C] = {
+    flatMap(actionA)(a => flatMap(actionB)(b => {
+      rng => {
+        (f(a, b), rng)
+      }
+    }))
+  }
 }
