@@ -23,7 +23,7 @@ case class State[S, +A](run: S => (A, S)) {
   def flatMap[B](f: A => State[S, B]): State[S, B] = {
     State(s => {
       val (a, next) = run(s)
-      val (v, next2): (B, S) = f(a)(next)
+      val (v, next2): (B, S) = f(a).run(next)
       (v, next2)
     })
   }
